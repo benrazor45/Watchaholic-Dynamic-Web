@@ -84,6 +84,7 @@ analytics.js"></script>
                                 <th>Total Harga</th>
                                 <th>Alamat Pengiriman</th>
                                 <th>User</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -126,19 +127,9 @@ analytics.js"></script>
                     <input type="text" class="form-control" id="pembeli" /><br></br>
 
                     <div class="row">
-                        <div class="d-grid col-sm-4">
+                        <div class="d-grid col-sm-6">
                             <input class="btn btn-info" id="addbtn" type="button" onclick="createData()"
                                 style="margin-left: 10px;" value="Add" />
-
-                        </div>
-                        <div class="d-grid col-sm-4">
-                            <input class="btn btn-info" id="addbtn" type="button" onclick="updateData()"
-                                style="margin-left: 10px;" value="Edit" />
-
-                        </div>
-                        <div class="d-grid col-sm-4">
-                            <input class="btn btn-info" id="addbtn" type="button" onclick="deleteData()"
-                                style="margin-left: 10px;" value="Delete" />
 
                         </div>
 
@@ -205,8 +196,28 @@ analytics.js"></script>
                         var cellTotal = row.insertCell(4);
                         var cellAlamat = row.insertCell(5);
                         var cellUser = row.insertCell(6);
+                        var cellDelete = row.insertCell(7);
+                        var cellEdit = row.insertCell(8);
 
+                        var deleteButton = document.createElement("button");
+                        deleteButton.innerHTML = "Delete";
+                        deleteButton.className = "btn btn-danger";
+                        deleteButton.onclick = function () {
+                            deleteData(childKey);
+                        };
 
+                        cellDelete.appendChild(deleteButton);
+
+                        var editButton = document.createElement("button");
+                        editButton.innerHTML = "Edit";
+                        editButton.className = "btn btn-info";
+                        editButton.setAttribute("data-bs-toggle", "modal");
+                        editButton.setAttribute("data-bs-target", "#editModal");
+                        editButton.onclick = function () {
+                            updateData(uid, merk, nama, jumlah, price, alamat, user);
+                        };
+
+                        cellEdit.appendChild(editButton);
 
 
 

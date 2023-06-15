@@ -7,8 +7,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login & Signup Form</title>
   <link rel="stylesheet" href="css/stylelogin.css" />
-  <script>
 
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js%22%3E"></script>
+    
+
+  <script src=" https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-
+database.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-
+firestore.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-
+analytics.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBPsBgxYiQ5uTHREE41LH2Z6EufR0fyyEA",
+      authDomain: "watchaholicweb.firebaseapp.com",
+      databaseURL: "https://watchaholicweb-default-rtdb.firebaseio.com",
+      projectId: "watchaholicweb",
+      storageBucket: "watchaholicweb.appspot.com",
+      messagingSenderId: "729479701539",
+      appId: "1:729479701539:web:b5fc249b7e77ab7e423d96",
+      measurementId: "G-2DRRDPZTMF"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
   </script>
 
 
@@ -19,28 +50,21 @@
 
     <div class="form signup">
       <header>Signup</header>
-      <form action="#">
-        <input type="text" id="name" name="name" placeholder="Full name" required />
-        <input type="email" id="email" name="email" placeholder="Email address" required />
-        <input type="password" id="password_signup" name="password_signup" placeholder="Password" required />
-        <div class="checkbox">
-          <input type="checkbox" id="signupCheck" />
-          <label for="signupCheck">I accept all terms & conditions</label>
-        </div>
-        <input type="submit" class="btn" value="Sign Up" id="button_signup" />
-      </form>
+
+      <input type="email" id="email" name="email" placeholder="Email" required />
+      <input type="password" id="password_signup" name="password" placeholder="Password" required />
+      <input type="password" id="repeatPassword" name="repeat_password" placeholder="Repeat Password" required />
+      <button style="color: aliceblue;" class="btn" value="Sign Up" id="signUp" onclick="signUp()">SignUp</button>
     </div>
 
     <div class="form login">
       <header>Login</header>
-      <form class="login_form" action="index.html" method="post" name="form" onsubmit="return validated()">
-        <input autocomplete="off" placeholder="Email address" type="text" id="email_login" name="email">
-        <div id="email_error">Please fill up your Email or Phone</div>
-        <input type="password" placeholder="Password" name="password" id="password_login" >
-        <div id="pass_error">Please fill up your Password</div>
-        <a href="changepass.html">Forgot password?</a>
-        <input type="submit" class="btn" value="Log In" id="button_login"/>
-      </form>
+      <input autocomplete="off" placeholder="Email address" type="text" id="email" name="email">
+      <div id="email_error">Please fill up your Email or Phone</div>
+      <input type="password" placeholder="Password" name="password" id="password">
+      <div id="pass_error">Please fill up your Password</div>
+      <a href="changepass.html">Forgot password?</a>
+      <button style="color: aliceblue;" class="btn" value="Sign Up" id="signIn" onclick="signIn()">SignUp</button>
     </div>
 
     <script>
@@ -55,8 +79,45 @@
         wrapper.classList.remove("active");
       });
     </script>
-    <script src="js/validasi.js"></script>
-    <script type="module" src="js/login.js" ></script>
+    <script>
+      function signUp() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password_signup").value;
+        var repeat = document.getElementById("repeatPassword").value;
+        if (password == repeat) {
+          firebase.auth().createUserWithEmailAndPassword(email, password).then(function
+            () {
+            alert("Registration Success!");
+            window.location.href = "login.jsp";
+
+          }).catch(function (error) {
+
+            var errorMessage = error.message;
+            alert(errorMessage);
+          });
+        }
+        else {
+          alert("Password & Repeat Password do not match!");
+        }
+
+      }
+      function signIn() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
+
+          window.location.href = "admin-dash.html";
+        }).catch(function (error) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+
+          })
+        });
+      }
+    </script>
+
   </section>
 </body>
 
