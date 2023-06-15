@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login & Signup Form</title>
+  <link rel="stylesheet" href="css/stylelogin.css" />
+  <script>
+
+  </script>
+
+
+</head>
+
+<body>
+  <section class="wrapper">
+
+    <div class="form signup">
+      <header>Signup</header>
+      <form action="#">
+        <input type="text" id="name" name="name" placeholder="Full name" required />
+        <input type="email" id="email" name="email" placeholder="Email address" required />
+        <input type="password" id="password_signup" name="password_signup" placeholder="Password" required />
+        <div class="checkbox">
+          <input type="checkbox" id="signupCheck" />
+          <label for="signupCheck">I accept all terms & conditions</label>
+        </div>
+        <input type="submit" class="btn" value="Sign Up" id="button_signup" />
+      </form>
+    </div>
+
+    <div class="form login">
+      <header>Login</header>
+      <form class="login_form" action="index.html" method="post" name="form" onsubmit="return validated()">
+        <input autocomplete="off" placeholder="Email address" type="text" id="email_login" name="email">
+        <div id="email_error">Please fill up your Email or Phone</div>
+        <input type="password" placeholder="Password" name="password" id="password_login" >
+        <div id="pass_error">Please fill up your Password</div>
+        <a href="changepass.html">Forgot password?</a>
+        <input type="submit" class="btn" value="Log In" id="button_login"/>
+      </form>
+    </div>
+
+    <script>
+      const wrapper = document.querySelector(".wrapper"),
+        signupHeader = document.querySelector(".signup header"),
+        loginHeader = document.querySelector(".login header");
+
+      loginHeader.addEventListener("click", () => {
+        wrapper.classList.add("active");
+      });
+      signupHeader.addEventListener("click", () => {
+        wrapper.classList.remove("active");
+      });
+    </script>
+    <script src="js/validasi.js"></script>
+    <script type="module" src="js/login.js" ></script>
+  </section>
+</body>
+
+</html>

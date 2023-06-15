@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Login & Signup Form</title>
+    <link rel="stylesheet" href="css/changepass.css" />
+  </head>
+  <body>
+    <section class="wrapper">
+   
+      <div class="form signup1">
+        <header>Forgot Password?</header>
+        <form class="login_form" action="changepass2.html" method="post" name="form" onsubmit="return validated()">
+          <input autocomplete="off" placeholder="Email address" type="text" name="email">
+          <div id="email_error">Please fill up your Email or Phone</div>
+          <a href="login.html">Back</a>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+      <script src="js/validasiubahpass.js"></script>
+    </section>
+  </body>
+</html>

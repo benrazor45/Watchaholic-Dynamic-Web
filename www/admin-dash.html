@@ -1,0 +1,403 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <title>Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/75d87df1a2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/admindash.css" />
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-
+database.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-
+firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-
+analytics.js"></script>
+
+    <script>
+        // Your web app's Firebase   configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBPsBgxYiQ5uTHREE41LH2Z6EufR0fyyEA",
+            authDomain: "watchaholicweb.firebaseapp.com",
+            databaseURL: "https://watchaholicweb-default-rtdb.firebaseio.com",
+            projectId: "watchaholicweb",
+            storageBucket: "watchaholicweb.appspot.com",
+            messagingSenderId: "729479701539",
+            appId: "1:729479701539:web:b5fc249b7e77ab7e423d96",
+            measurementId: "G-2DRRDPZTMF"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+
+    <head>
+
+    <body>
+        <div id="wrapper" class="toggled">
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="#">
+                            Admin Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-dash.html">Products</a>
+                    </li>
+                    <li>
+                        <a href="order-dash.xhtml">Order Table</a>
+                    </li>
+                    <li>
+                        <a href="index.xhtml">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <h2>User Orders</h2>
+                    <br><br>
+                    <div class="row">
+                        <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">
+                                        Add Data
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3 mt-3">
+                                            <label for="name" class="form-label">Merk Barang:</label>
+                                            <input type="name" class="form-control" id="addmerk"
+                                                placeholder="Enter Merk" name="merk" aria-readonly="true" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="venue" class="form-label">Nama Barang:</label>
+                                            <input type="text" class="form-control" id="addnama"
+                                                placeholder="Enter Name" name="nama" aria-readonly="true" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="date" class="form-label">Jumlah Pembelian:</label>
+                                            <input type="text" class="form-control" id="addqty" placeholder="Enter Qty"
+                                                name="kuantitas" aria-readonly="true" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="input" class="form-label">Total Harga:</label>
+                                            <input type="text" class="form-control" id="addtotal"
+                                                placeholder="Input total Price" name="price" min="0"
+                                                aria-readonly="true" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="desc" class="form-label">Alamat Pengiriman:</label>
+                                            <input type="text" class="form-control" id="addalamat"
+                                                placeholder="Add Address" name="alamat" aria-readonly="true" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="desc" class="form-label">User:</label>
+                                            <input type="text" class="form-control" id="addpembeli"
+                                                placeholder="Input User" name="user" aria-readonly="true" />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button onclick="reload_page()" type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <button onclick="createData()" class="btn btn-primary">
+                                        Save changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <!--Add Data-->
+
+                    <div class="row">
+                        <button class="btn btn-lg btn-success" data-bs-toggle="modal"
+                                data-bs-target="#myModal">
+                                Add
+                        </button>
+                        <table class="table table-striped table-hover" id="table_pembelian">
+                            <thead>
+                                <tr>
+                                    <th>ID Pembelian</th>
+                                    <th>Merk</th>
+                                    <th>Nama Barang</th>
+                                    <th>Jumlah Pembelian</th>
+                                    <th>Total Harga</th>
+                                    <th>Alamat Pengiriman</th>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <!--Modal Update-->
+                                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">
+                                                            Edit Data
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form onsubmit="updateData()">
+                                                            <input type="text" style="display: none" id="uid" readonly />
+                                                            <div class="mb-3 mt-3">
+                                                                <label for="name" class="form-label">Merk Barang:</label>
+                                                                <input type="name" class="form-control" id="merkbarang"
+                                                                    placeholder="Enter Merk" name="merk"
+                                                                    aria-readonly="true" />
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="venue" class="form-label">Nama Barang:</label>
+                                                                <input type="text" class="form-control" id="namabarang"
+                                                                    placeholder="Enter Name" name="nama"
+                                                                    aria-readonly="true" />
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="date" class="form-label">Jumlah
+                                                                    Pembelian:</label>
+                                                                <input type="text" class="form-control" id="kuantitas"
+                                                                    placeholder="Enter Qty" name="kuantitas"
+                                                                    aria-readonly="true" />
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="input" class="form-label">Total Harga:</label>
+                                                                <input type="text" class="form-control" id="totalprice"
+                                                                    placeholder="Input total Price" name="price" min="0"
+                                                                    aria-readonly="true" />
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="desc" class="form-label">Alamat
+                                                                    Pengiriman:</label>
+                                                                <input type="text" class="form-control" id="alamat"
+                                                                    placeholder="Add Address" name="alamat"
+                                                                    aria-readonly="true" />
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="desc" class="form-label">User:</label>
+                                                                <input type="text" class="form-control" id="pembeli"
+                                                                    placeholder="Input User" name="user"
+                                                                    aria-readonly="true" />
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal" onclick="reload_page()">
+                                                            Close
+                                                        </button>
+                                                        <button onclick="updateData()" class="btn btn-primary">
+                                                            Save changes
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+
+        </div>
+
+
+        <!-- Script -->
+        <script>
+
+
+            // Insert
+            var databaseRef = firebase.database().ref('Pembelian/');
+
+            function createData() {
+                var merkBar = document.getElementById('addmerk').value;
+                var namaBar = document.getElementById('addnama').value;
+                var qty = document.getElementById('addqty').value;
+                var totalHarga = document.getElementById('addtotal').value;
+                var alamat = document.getElementById('addalamat').value;
+                var user = document.getElementById('addpembeli').value;
+                var uid = firebase.database().ref().child('Pembelian').push().key;
+                var data = {
+                    merk: merkBar,
+                    nama: namaBar,
+                    jumlah: qty,
+                    price: totalHarga,
+                    alamat: alamat,
+                    pembeli: user
+                }
+                var updates = {};
+                updates['/Pembelian/' + uid] = data;
+                firebase.database().ref().update(updates);
+                alert('Data pembelian created successfully!');
+                reload_page();
+            }
+            function reload_page() {
+                window.location.reload();
+            }
+
+            //read
+
+            var tb_dataPembelian = document.getElementById('table_pembelian');
+            var databaseRef = firebase.database().ref('Pembelian/');
+            var rowIndex = 1;
+
+            databaseRef.once('value', function (snapshot) {
+                snapshot.forEach(function (childSnapshot) {
+                    var childKey = childSnapshot.key;
+                    var childData = childSnapshot.val();
+
+                    var { merk, nama, jumlah, price, alamat, pembeli } = childData;
+                    var row = tb_dataPembelian.insertRow(rowIndex);
+
+                    var cellId = row.insertCell(0);
+                    var cellMerk = row.insertCell(1);
+                    var cellNama = row.insertCell(2);
+                    var cellQty = row.insertCell(3);
+                    var cellTotal = row.insertCell(4);
+                    var cellAlamat = row.insertCell(5);
+                    var cellUser = row.insertCell(6);
+                    var cellDelete = row.insertCell(7);
+                    var cellEdit = row.insertCell(8);
+
+
+                    cellId.appendChild(document.createTextNode(childKey));
+                    cellMerk.appendChild(document.createTextNode(childData.merk));
+                    cellNama.appendChild(document.createTextNode(childData.nama));
+                    cellQty.appendChild(document.createTextNode(childData.jumlah));
+                    cellTotal.appendChild(document.createTextNode(childData.price));
+                    cellAlamat.appendChild(document.createTextNode(childData.alamat));
+                    cellUser.appendChild(document.createTextNode(childData.pembeli));
+
+                    var deleteButton = document.createElement("button");
+                    deleteButton.innerHTML = "Delete";
+                    deleteButton.className = "btn btn-danger";
+                    deleteButton.onclick = function () {
+                        deleteData(childKey);
+                    };
+
+                    cellDelete.appendChild(deleteButton);
+
+                    var editButton = document.createElement("button");
+                    editButton.innerHTML = "Edit";
+                    editButton.className = "btn btn-info";
+                    editButton.setAttribute("data-bs-toggle", "modal");
+                    editButton.setAttribute("data-bs-target", "#editModal");
+                    editButton.onclick = function () {
+                        onOpenEditModal({
+                            merk,
+                            nama,
+                            jumlah,
+                            price,
+                            alamat,
+                            pembeli
+                        })
+                    };
+
+                    cellEdit.appendChild(editButton);
+
+                    rowIndex++;
+                });
+
+            });
+
+            function onOpenEditModal({ uid, merk, nama, jumlah, price, alamat, user }) {
+                document.getElementById("uid").value = uid;
+                document.getElementById("merkbarang").value = merk;
+                document.getElementById("namabarang").value = nama;
+                document.getElementById("kuantitas").value = jumlah;
+                document.getElementById("totalprice").value = price;
+                document.getElementById("alamat").value = alamat;
+                document.getElementById("pembeli").value = user;
+            }
+
+
+
+            function updateData() {
+                var uid = document.getElementById('uid').value;
+                var merk = document.getElementById('merkbarang').value;
+                var nama = document.getElementById('namabarang').value;
+                var jumlah = document.getElementById('kuantitas').value;
+                var price = document.getElementById('totalprice').value;
+                var alamat = document.getElementById('alamat').value;
+                var user = document.getElementById('pembeli').value;
+
+                var data = {
+                    merk: merk,
+                    nama: nama,
+                    jumlah: jumlah,
+                    price: price,
+                    alamat: alamat,
+                    pembeli: user
+                }
+
+                var updates = {};
+                updates['/Pembelian/' + uid] = data;
+                firebase.database().ref().update(updates);
+
+                alert('Data Pembelian updated successfully!');
+
+                reload_page();
+            }
+
+
+            function deleteData(uid) {
+                firebase
+                    .database()
+                    .ref()
+                    .child("/Pembelian/" + uid)
+                    .remove();
+                reload_page();
+            }
+
+            function reload_page() {
+                window.location.reload();
+            }
+
+
+        </script>
+    </body>
+
+</html>
