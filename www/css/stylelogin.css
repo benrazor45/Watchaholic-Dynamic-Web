@@ -145,15 +145,30 @@ form
   cursor: pointer;
 }
 
-button {
+.btn-login {
   background: linear-gradient(to bottom, rgb(245, 13, 59), rgb(66, 1, 1));
   height: 60px;
+  border-radius: 15em;
+  width: 100%;
   border: none;
   margin-top: 15px;
   padding: none;
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
+}
+.btn-signup {
+  background: whitesmoke;
+  height: 60px;
+  border-radius: 15em;
+  width: 100%;
+  border: none;
+  margin-top: 15px;
+  padding: none;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  color: rgb(245, 13, 59) ;
 }
 
 .form-signup1 button{

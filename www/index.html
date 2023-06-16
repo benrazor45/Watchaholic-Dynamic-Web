@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/stylelogin.css" />
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js%22%3E"></script>
-    
+
 
   <script src=" https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
 
@@ -50,21 +50,23 @@ analytics.js"></script>
 
     <div class="form signup">
       <header>Signup</header>
+      <form>
+        <input type="email" id="email" name="email" placeholder="Email" required />
+        <input type="password" id="password_signup" name="password" placeholder="Password" required />
+        <input type="password" id="repeatPassword" name="repeat_password" placeholder="Repeat Password" required />
+      </form>
+      <button class="btn-signup" value="Sign Up" id="sign-up" onclick="signUp()">SignUp</button>
 
-      <input type="email" id="email" name="email" placeholder="Email" required />
-      <input type="password" id="password_signup" name="password" placeholder="Password" required />
-      <input type="password" id="repeatPassword" name="repeat_password" placeholder="Repeat Password" required />
-      <button style="color: aliceblue;" class="btn" value="Sign Up" id="signUp" onclick="signUp()">SignUp</button>
     </div>
 
     <div class="form login">
       <header>Login</header>
-      <input autocomplete="off" placeholder="Email address" type="text" id="email" name="email">
-      <div id="email_error">Please fill up your Email or Phone</div>
-      <input type="password" placeholder="Password" name="password" id="password">
-      <div id="pass_error">Please fill up your Password</div>
-      <a href="changepass.html">Forgot password?</a>
-      <button style="color: aliceblue;" class="btn" value="Sign Up" id="signIn" onclick="signIn()">SignUp</button>
+      <form>
+        <input autocomplete="off" placeholder="Email address" type="text" id="email" name="email">
+        <input type="password" placeholder="Password" name="password" id="password">
+      </form>
+      <button style="color: aliceblue;" class="btn-login" value="Sign Up" id="sign-in" onclick="signIn()">SignIn</button>
+
     </div>
 
     <script>
@@ -88,12 +90,13 @@ analytics.js"></script>
           firebase.auth().createUserWithEmailAndPassword(email, password).then(function
             () {
             alert("Registration Success!");
-            window.location.href = "login.jsp";
+            console.log("login mase");
 
           }).catch(function (error) {
 
             var errorMessage = error.message;
             alert(errorMessage);
+            console.log(" gak bisa login mase");
           });
         }
         else {

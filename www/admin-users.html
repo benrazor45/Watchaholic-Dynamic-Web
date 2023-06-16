@@ -64,7 +64,10 @@ analytics.js"></script>
                         <a href="admin-users.html">User</a>
                     </li>
                     <li>
-                        <a href="admin-users.html">Log Out</a>
+                        <a href="admin-merk.html">Merk</a>
+                    </li>
+                    <li>
+                        <a href="index.html">Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -73,18 +76,17 @@ analytics.js"></script>
             <!-- Page Content -->
             <div id="page-content-wrapper">
                 <div class="container-fluid">
-                    <h2>User Orders</h2>
-                    <table class="table table-striped table-hover" id="table_pembelian">
+                    <h2>Customer Data</h2>
+                    <table class="table table-striped table-hover" id="table_customer">
                         <thead>
                             <tr>
-                                <th>ID Pembelian</th>
-                                <th>Merk</th>
-                                <th>Nama Barang</th>
-                                <th>Jumlah Pembelian</th>
-                                <th>Total Harga</th>
-                                <th>Alamat Pengiriman</th>
-                                <th>User</th>
-                                <th>Action</th>
+                                <th>ID Customer</th>
+                                <th>Nama</th>
+                                <th>Username</th>
+                                <th>No.Telp</th>
+                                <th>Gender</th>
+                                <th>Asal Kota</th>
+                                <th>Alamat Customer</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,35 +107,50 @@ analytics.js"></script>
 
                     <div style="height: 60px"></div>
 
-                    <label class="form-label">ID Pembelian</label>
-                    <input type="text" class="form-control" id="uid" readonly /><br></br>
+                    <label class="form-label">ID Customer</label>
+                    <input type="text" class="form-control" id="cid" readonly /><br></br>
 
-                    <label class="form-label">Merk</label>
-                    <input type="text" class="form-control" id="merkbarang" /><br></br>
+                    <label class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="namauser" /><br></br>
 
-                    <label class="form-label">Nama Barang</label>
-                    <input type="text" class="form-control" id="namabarang" /><br></br>
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" /><br></br>
 
-                    <label class="form-label">Jumlah Pembelian</label>
-                    <input type="text" class="form-control" id="quantity" /><br></br>
+                    <label class="form-label">No.Telp</label>
+                    <input type="text" class="form-control" id="nomortelp" /><br></br>
+                    
+                    <label class="form-label">Gender</label> </br>
+                    <select id="gender">
+                        <option value="Ready">Laki-laki</option>
+                        <option value="SoldOut">Perempuan</option>
+                    </select><br></br>
 
-                    <label class="form-label">Total Harga</label>
-                    <input type="text" class="form-control" id="total" /><br></br>
+                    <label class="form-label">Asal Kota</label>
+                    <input type="text" class="form-control" id="asalkota" /><br></br>
 
-                    <label class="form-label">ALamat Pengiriman</label>
-                    <input type="text" class="form-control" id="address" /><br></br>
-
-                    <label class="form-label">User</label>
-                    <input type="text" class="form-control" id="pembeli" /><br></br>
+                    <label class="form-label">Alamat Customer</label>
+                    <input type="text" class="form-control" id="useraddress" /><br></br>
 
                     <div class="row">
-                        <div class="d-grid col-sm-6">
+                        <div class="d-grid col-sm-4">
                             <input class="btn btn-info" id="addbtn" type="button" onclick="createData()"
                                 style="margin-left: 10px;" value="Add" />
 
                         </div>
+                        <div class="d-grid col-sm-4">
+                            <input class="btn btn-info" id="addbtn" type="button" onclick="updateData()"
+                                style="margin-left: 10px;" value="Edit" />
+
+                        </div>
+                        <div class="d-grid col-sm-4">
+                            <input class="btn btn-info" id="addbtn" type="button" onclick="deleteData()"
+                                style="margin-left: 10px;" value="Delete" />
+
+                        </div>
 
                     </div>
+
+
 
 
                 </div>
@@ -148,28 +165,29 @@ analytics.js"></script>
 
 
             // Insert
-            var databaseRef = firebase.database().ref('Pembelian/');
+            var databaseRef = firebase.database().ref('Customer/');
 
             function createData() {
-                var merkBar = document.getElementById('merkbarang').value;
-                var namaBar = document.getElementById('namabarang').value;
-                var qty = document.getElementById('quantity').value;
-                var totalHarga = document.getElementById('total').value;
-                var alamat = document.getElementById('address').value;
-                var user = document.getElementById('pembeli').value;
-                var uid = firebase.database().ref().child('Pembelian').push().key;
+                var namaUser = document.getElementById('namauser').value;
+                var userName = document.getElementById('username').value;
+                var telp = document.getElementById('nomortelp').value;
+                var gender = document.getElementById('gender').value;
+                var kota = document.getElementById('asalkota').value;
+                var alamat = document.getElementById('useraddress').value;
+                var cid = firebase.database().ref().child('Customer').push().key;
                 var data = {
-                    merk: merkBar,
-                    nama: namaBar,
-                    jumlah: qty,
-                    price: totalHarga,
+                    nama: namaUser,
+                    username: userName,
+                    telp: telp,
+                    gender: gender,
+                    asalkota: kota,
                     alamat: alamat,
-                    pembeli: user
+                  
                 }
                 var updates = {};
-                updates['/Pembelian/' + uid] = data;
+                updates['/Customer/' + cid] = data;
                 firebase.database().ref().update(updates);
-                alert('mata kuliah created successfully!');
+                alert('Customer Data created successfully!');
                 reload_page();
             }
             function reload_page() {
@@ -178,8 +196,8 @@ analytics.js"></script>
 
             //read
             function getData() {
-                var tb_dataPembelian = document.getElementById('table_pembelian');
-                var databaseRef = firebase.database().ref('Pembelian/');
+                var tb_dataCustomer = document.getElementById('table_customer');
+                var databaseRef = firebase.database().ref('Customer/');
                 var rowIndex = 1;
 
                 databaseRef.once('value', function (snapshot) {
@@ -187,52 +205,29 @@ analytics.js"></script>
                         var childKey = childSnapshot.key;
                         var childData = childSnapshot.val();
 
-                        var row = tb_dataPembelian.insertRow(rowIndex);
+                        var row = tb_dataCustomer.insertRow(rowIndex);
 
                         var cellId = row.insertCell(0);
-                        var cellMerk = row.insertCell(1);
-                        var cellNama = row.insertCell(2);
-                        var cellQty = row.insertCell(3);
-                        var cellTotal = row.insertCell(4);
-                        var cellAlamat = row.insertCell(5);
-                        var cellUser = row.insertCell(6);
-                        var cellDelete = row.insertCell(7);
-                        var cellEdit = row.insertCell(8);
-
-                        var deleteButton = document.createElement("button");
-                        deleteButton.innerHTML = "Delete";
-                        deleteButton.className = "btn btn-danger";
-                        deleteButton.onclick = function () {
-                            deleteData(childKey);
-                        };
-
-                        cellDelete.appendChild(deleteButton);
-
-                        var editButton = document.createElement("button");
-                        editButton.innerHTML = "Edit";
-                        editButton.className = "btn btn-info";
-                        editButton.setAttribute("data-bs-toggle", "modal");
-                        editButton.setAttribute("data-bs-target", "#editModal");
-                        editButton.onclick = function () {
-                            updateData(uid, merk, nama, jumlah, price, alamat, user);
-                        };
-
-                        cellEdit.appendChild(editButton);
-
+                        var cellNama = row.insertCell(1);
+                        var cellUsername = row.insertCell(2);
+                        var cellTelp = row.insertCell(3);
+                        var cellGender = row.insertCell(4);
+                        var cellAsalkota = row.insertCell(5);
+                        var cellAlamat = row.insertCell(6);
 
 
                         cellId.appendChild(document.createTextNode(childKey));
-                        cellMerk.appendChild(document.createTextNode(childData.merk));
                         cellNama.appendChild(document.createTextNode(childData.nama));
-                        cellQty.appendChild(document.createTextNode(childData.jumlah));
-                        cellTotal.appendChild(document.createTextNode(childData.price));
+                        cellUsername.appendChild(document.createTextNode(childData.username));
+                        cellTelp.appendChild(document.createTextNode(childData.telp));
+                        cellGender.appendChild(document.createTextNode(childData.gender));
+                        cellAsalkota.appendChild(document.createTextNode(childData.asalkota));
                         cellAlamat.appendChild(document.createTextNode(childData.alamat));
-                        cellUser.appendChild(document.createTextNode(childData.pembeli));
 
 
                         rowIndex = rowIndex + 1;
                     });
-                    var table = document.getElementById("table_pembelian");
+                    var table = document.getElementById("table_customer");
                     var rows = table.getElementsByTagName("tr");
                     for (i = 0; i < rows.length; i++) {
                         var currentRow = table.rows[i];
@@ -247,20 +242,20 @@ analytics.js"></script>
                                 var cell7 = row.getElementsByTagName("td")[6];
 
                                 var id = cell1.innerHTML;
-                                var merk = cell2.innerHTML;
-                                var nama = cell3.innerHTML;
-                                var jumlah = cell4.innerHTML;
-                                var harga = cell5.innerHTML;
-                                var alamat = cell6.innerHTML;
-                                var user = cell7.innerHTML;
+                                var nama = cell2.innerHTML;
+                                var username = cell3.innerHTML;
+                                var telp = cell4.innerHTML;
+                                var gender = cell5.innerHTML;
+                                var asalkota = cell6.innerHTML;
+                                var alamat = cell7.innerHTML;
 
-                                document.getElementById('uid').value = id;
-                                document.getElementById('merkbarang').value = merk;
-                                document.getElementById('namabarang').value = nama;
-                                document.getElementById('quantity').value = jumlah;
-                                document.getElementById('total').value = harga;
-                                document.getElementById('address').value = alamat;
-                                document.getElementById('pembeli').value = user;
+                                document.getElementById('cid').value = id;
+                                document.getElementById('namauser').value = nama;
+                                document.getElementById('username').value = username;
+                                document.getElementById('nomortelp').value = telp;
+                                document.getElementById('gender').value = gender;
+                                document.getElementById('asalkota').value = asalkota;
+                                document.getElementById('useraddress').value = alamat;
 
 
                             };
@@ -271,39 +266,40 @@ analytics.js"></script>
             }
 
 
-            function updateData(uid, merk, nama, jumlah, price, alamat, user) {
-                var uid = document.getElementById('uid').value;
-                var merk = document.getElementById('merkbarang').value;
-                var nama = document.getElementById('namabarang').value;
-                var jumlah = document.getElementById('quantity').value;
-                var price = document.getElementById('total').value;
-                var alamat = document.getElementById('address').value;
-                var user = document.getElementById('pembeli').value;
+            function updateData(cid, nama, username, telp, gender, asalkota, alamat) {
+                var cid = document.getElementById('cid').value;
+                var nama = document.getElementById('namauser').value;
+                var username = document.getElementById('username').value;
+                var telp = document.getElementById('nomortelp').value;
+                var gender = document.getElementById('gender').value;
+                var asalkota = document.getElementById('asalkota').value;
+                var alamat = document.getElementById('useraddress').value;
 
                 var data = {
-                    merk: merk,
                     nama: nama,
-                    jumlah: jumlah,
-                    price: price,
+                    username: username,
+                    telp: telp,
+                    gender: gender,
+                    asalkota: asalkota,
                     alamat: alamat,
-                    pembeli: user
+                  
                 }
 
                 var updates = {};
-                updates['/Pembelian/' + uid] = data;
+                updates['/Customer/' + cid] = data;
                 firebase.database().ref().update(updates);
 
-                alert('Data Pembelian updated successfully!');
+                alert('Customer Data updated successfully!');
 
                 reload_page();
             }
 
 
             function deleteData() {
-                var uid = document.getElementById('uid').value;
+                var cid = document.getElementById('cid').value;
 
-                firebase.database().ref().child('/Pembelian/' + uid).remove();
-                alert('Data Pembelian deleted successfully!');
+                firebase.database().ref().child('/Customer/' + cid).remove();
+                alert('Customer Data deleted successfully!');
                 reload_page();
             }
 
